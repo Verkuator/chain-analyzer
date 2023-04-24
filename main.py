@@ -63,7 +63,7 @@ def print_second_tab() -> None:
     string = '|' + r"{:^6}|" * len(err_count_list)
     sep = "\n" + '-'* 20 + ('+' + '-' * 6) * len(err_count_list) + '|' + '\n'
     
-    chance = [round(x / math.comb(e + n, e), 3) for x in err_count_list]
+    
     with open('second_tab.txt', 'w', encoding='utf-8') as file:
         file.write("{:<20}".format("Ледж-коэффициент") + string.format(*ledg_list) + sep)
         file.write("{:<20}".format("Вероятность встречи") + string.format(*chance))
@@ -146,15 +146,18 @@ if __name__ == "__main__":
 
     err_list = sorted(err_count_dict.keys(), reverse=True)
     err_count_list = [err_count_dict[x] for x in err_list]
-    ledg_list = [round(ledg_coefficiant(x, max_err_count), 3)
+    ledg_list = [round(ledg_coefficiant(x, max_err_count), 4)
                  for x in err_list]
-    
-
-    print("Ледж коэффициент для заданной цепочки: {:.4}".format(
-        ledg_coefficiant(curr_chain_errs, max_err_count)))
+    chance = [round(x / math.comb(e + n, e), 4) for x in err_count_list]
 
     print_first_tab()
     print_second_tab()
     print('Расчёты завершены.')
+
+    curr_chain_ledg = ledg_coefficiant(curr_chain_errs, max_err_count)
+    print("Ледж коэффициент для заданной цепочки: {:.4}".format(curr_chain_ledg ))
+    ledg_num = ledg_list.index(round(curr_chain_ledg, 4))
+    connection_proba = sum(chance[ledg_num:])
+    print("С такой вероятностью связь ступенчатого типа отсутствует:", round(connection_proba, 4))
     os.system("pause")
     
