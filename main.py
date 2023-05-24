@@ -54,7 +54,7 @@ def print_first_tab() -> None:
     string = '|' + r"{:^6}|" * len(err_count_list)
     sep = "\n" + '-'* 20 + ('+' + '-' * 6) * len(err_count_list) + '|' + '\n'
     
-    with open('first_tab.txt', 'w', encoding='utf-8') as file:
+    with open('repetition_tab.txt', 'w', encoding='utf-8') as file:
         file.write("{:<20}".format("Ледж-коэффициент") + string.format(*ledg_list) + sep)
         file.write("{:<20}".format("Повторность") + string.format(*err_count_list))
     
@@ -64,7 +64,7 @@ def print_second_tab() -> None:
     sep = "\n" + '-'* 20 + ('+' + '-' * 6) * len(err_count_list) + '|' + '\n'
     
     
-    with open('second_tab.txt', 'w', encoding='utf-8') as file:
+    with open('distribution_tab.txt', 'w', encoding='utf-8') as file:
         file.write("{:<20}".format("Ледж-коэффициент") + string.format(*ledg_list) + sep)
         file.write("{:<20}".format("Вероятность встречи") + string.format(*chance))
 
